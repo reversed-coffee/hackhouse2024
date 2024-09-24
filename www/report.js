@@ -12,7 +12,8 @@ const handlers = {};
     console.log("We got a straggler! Reporting data to the mothership.");
 
     // Connect to websocket if we're a rogue site
-    const socket = io(`ws://${window.location.hostname}`, { path: "/report/" });
+    const socketProto = window.location.protocol === "https:" ? "wss" : "ws";
+    const socket = io(`${socketProto}://${window.location.hostname}`, { path: "/report/" });
     console.log("Connected to websocket!");
 
     // on wndow message posted

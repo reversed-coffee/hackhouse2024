@@ -1,6 +1,7 @@
 import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
 
-const socket = io(`ws://${window.location.hostname}`, { path: "/report/" });
+const socketProto = window.location.protocol === "https:" ? "wss" : "ws";
+const socket = io(`${socketProto}://${window.location.hostname}`, { path: "/report/" });
 
 // authenticate
 const password = localStorage.getItem("pw") ?? prompt("give me the password");
