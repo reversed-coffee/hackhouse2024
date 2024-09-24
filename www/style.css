@@ -45,7 +45,6 @@ a {
 
 .content {
     display: flex;
-    overflow: auto;
     position: relative;
     justify-content: center;
     align-items: center;
