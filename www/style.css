@@ -22,6 +22,7 @@ html, body {
     font-family: "Lato", sans-serif;
     margin: 0;
     padding: 0;
+    overflow: hidden;
     color: var(--text);
     background-image: url("background.jpg");
     background-size: cover;
