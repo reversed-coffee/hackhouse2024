@@ -49,8 +49,8 @@ a {
     align-items: center;
     text-align: center;
     flex-direction: column;
-    max-width: 100% !important;
-    min-width: 100% !important;
+    max-height: 100% !important;
+    min-height: 100% !important;
     backdrop-filter: blur(10px);
     /* thanks apple i hate it */
     -webkit-backdrop-filter: blur(10px);
