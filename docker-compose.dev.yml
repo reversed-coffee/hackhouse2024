@@ -2,11 +2,7 @@ services:
   nginx:
     image: nginx:stable-alpine
     container_name: hackhouse-nginx
-    hostname: nginx.hackhouse.lan
-    networks:
-      - hackhouse
-    ports:
-      - 80:80
+    network_mode: host
     volumes:
       - "./nginx.conf:/etc/nginx/nginx.conf"
       - "./http:/etc/nginx/http.d"
@@ -18,15 +14,10 @@ services:
   dashbajk-api:
     image: oven/bun:latest
     container_name: rogue-api
-    hostname: api.dashbajk.us
-    networks:
-      - hackhouse
+    ports:
+      - 127.0.0.1:3000:80
     volumes:
       - "./rogue:/app"
     working_dir: /app
     command: bun start
     restart: on-failure
-  
-networks:
-  hackhouse:
-    driver: bridge
