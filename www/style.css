@@ -4,6 +4,10 @@ body {
     --primary: #110E1B;
     --text: #F5F5F5;
     --accent: #FF8811;
+
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 }
 
 body.rogue {
@@ -22,7 +26,6 @@ html, body {
     font-family: "Lato", sans-serif;
     margin: 0;
     padding: 0;
-    overflow: hidden;
     color: var(--text);
     background-image: url("background.jpg");
     background-size: cover;
