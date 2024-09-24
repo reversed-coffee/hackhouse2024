@@ -24,7 +24,7 @@ services:
     volumes:
       - "./rogue:/app"
     working_dir: /app
-    command: bun install && bun start
+    command: sh -c 'bun install && bun start'
     restart: on-failure
   
 networks:
