@@ -1,0 +1,215 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@200;400;500;700&display=swap");
+
+body {
+    --primary: #110E1B;
+    --text: #F5F5F5;
+    --accent: #FF8811;
+}
+
+body.rogue {
+    --accent: #FF0000;
+}
+
+.HACK-prevent-page-load-css-transitioning * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}
+
+html, body {
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--text);
+    background-image: url("background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: var(--accent);
+    transition: color 1s ease;
+}
+
+.content {
+    display: flex;
+    overflow: auto;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    min-height: 100vh;
+    backdrop-filter: blur(10px);
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 2rem;
+    width: 300px;
+    min-height: 24vh;
+    border-radius: 10px;
+    background-color: rgba(18, 21, 25, 0.4);
+}
+
+@keyframes fadeIn {
+    0% { opacity:0; }
+    100% { opacity:1; }
+}
+
+@keyframes fadeOut {
+    0% { opacity:1; }
+    100% { opacity:0; }
+}
+
+.security-questions {
+    /* should center on the screen, a little larger than card */
+    width: min(400px, 70%);
+    background-color: rgba(18, 21, 25, 0.4);
+
+    /* start invisible */
+    opacity: 0;
+
+    /* center on the screen */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.fade-opaque {
+    animation: fadeIn 0.5s linear;
+    opacity: 1;
+}
+
+.fade-transparent {
+    animation: fadeOut 0.5s linear;
+    opacity: 0;
+}
+
+.card > * {
+    margin: 1rem 0;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.field > h4 {
+    align-self: flex-start;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+    font-size: 1.05rem;
+}
+
+input[type="text"], input[type="password"] {
+    padding: 0.5rem;
+    margin: 0.25rem 0;
+    border: none;
+    border-radius: 3px;
+    background-color: #F5F5F533;
+    color: var(--text);
+}
+
+button {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 3px;
+    background-color: var(--accent);
+    transition: background-color 1s ease;
+    color: var(--text);
+    cursor: pointer;
+    min-width: max(25%, 80px);
+}
+
+#login {
+    margin: 1rem 0;
+}
+
+button:disabled {
+    background-color: #FF881133;
+    transition: background-color 0.25s ease;
+    cursor: not-allowed;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 2rem;
+    opacity: 0.75;
+    text-align: center;
+}
+
+.accent {
+    color: var(--accent);
+    transition: color 1s ease;
+}
+
+#slogan {
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 200;
+    font-style: italic;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.question {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.question > * {
+    margin: 0.25rem 0;
+}
+
+.question > *:not(:first-child) {
+    margin-left: 0.5rem;
+}
+
+.question > input[type="text"] {
+    width: 50%;
+    text-align: center;
+}
+
+.question > .radiobox {
+    display: flex;
+    width: 30%;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.question > .radiobox > input[type="radio"] {
+    margin-right: 0.5rem;
+}
+
+#submit-question {
+    margin: 1rem;
+}
+
+.questions-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}

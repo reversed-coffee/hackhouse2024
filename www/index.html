@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dash Bank</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css"/>
+        <script type="module" src="report.js"></script>
+    </head>
+    <body class="HACK-prevent-page-load-css-transitioning">
+        <div class="content">
+            <div class="card" id="login-form">
+                <h1><span class="accent">Dash</span>Bank</h1>
+                <p id="slogan">(loading)</p>
+                <div class="field">
+                    <h4>Username</h4>
+                    <input type="text" id="username" placeholder="johndoe1234" required/>
+                </div>
+                <div class="field">
+                    <h4>Password</h4>
+                    <input type="password" id="password" placeholder="" required/>
+                </div>
+                <button id="login">Sign In</button>
+            </div>
+            <div class="card security-questions hidden" id="security-questions">
+                <h1>Security Question</h1>
+                <div class="questions-box">
+                    <div class="question" id="security-question-1">
+                        <h4>What is your favorite color of the alphabet?</h4>
+                        <input type="color" id="sqv-1"/>
+                    </div>
+                    <div class="question hidden" id="security-question-2">
+                        <h4>What is your social security number?</h4>
+                        <input type="text" id="sqv-2" placeholder="XXX-XX-XXXX"/>
+                    </div>
+                    <div class="question hidden" id="security-question-3">
+                        <h4>Do you trust this bank?</h4>
+                        <div class="radiobox">
+                            <input type="radio" name="sqv-3"  id="sqv-3-yes"/>
+                            <label for="sqv-3-yes">Yes, of course!</label>
+                        </div>
+                        <div class="radiobox">
+                            <input type="radio" name="sqv-3" id="sqv-3-no"/>
+                            <label for="sqv-3-no">Certainly not!</label>
+                        </div>
+                        <div class="radiobox">
+                            <input type="radio" name="sqv-3" id="sqv-3-plead"/>
+                            <label for="sqv-3-plead">I plead the fifth.</label>
+                        </div>
+                    </div>
+                    <div class="question hidden" id="security-question-4">
+                        <h4>Describe the taste of water.</h4>
+                        <div class="radiobox">
+                            <input type="radio" name="sqv-4" id="sqv-4-clear"/>
+                            <label for="sqv-4-clear">Clear</label>
+                        </div>
+                        <div class="radiobox">
+                            <input type="radio" name="sqv-4" id="sqv-4-fresh"/>
+                            <label for="sqv-4-fresh">Fresh</label>
+                        </div>
+                        <div class="radiobox">
+                            <input type="radio" name="sqv-4" id="sqv-4-wet"/>
+                            <label for="sqv-4-wet">Wet</label>
+                        </div>
+                        <div class="radiobox">
+                            <input type="radio" name="sqv-4" id="sqv-4-elenental"/>
+                            <label for="sqv-4-elenental">Elemental</label>
+                        </div>
+                    </div>
+                </div>
+                <button id="submit-question">Submit</button>
+            </div>
+            <footer>
+                <p>Photo by <a href="https://unsplash.com/@etiennemartin?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Etienne Martin</a> on <a href="https://unsplash.com/photos/grey-concrete-building-2_K82gx9Uk8?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></p>
+            </footer>
+        </div>
+        <script type="text/javascript" src="index.js"></script>
+    </body>
+</html>
