@@ -52,6 +52,14 @@ The actual presentation itself is focused on typosquatting attacks, and how they
 repository is an entire ready-to-go phishing parody website that can be used to demonstrate how a typosquatting attack
 works - with some modifications, because the code is abhorrent. Maybe I can change that in the future.
 
+The only portion with bad code is the website itself, not the other files. For example, the implementation of the
+reverse proxy and Docker follow decent practices. Due to the nature of data being unencrypted between the reverse
+proxy and the client, the only way to make this secure is by either modifying it to use SSL or set it up with SDN to
+air-gap the container and doing a reverse proxy chain, where the client reverse proxy should be encrypting all
+outgoing information. For the presentation, this website was deployed securely by chaining reverse proxies in order
+to get SSL to function properly. Additionally, the server runs under two layers of containerization: Docker under
+unprivileged LXC.
+
 ## Disclaimer
 
 For the people who actually chose to dig into the technical parts of the website, I hope you enjoy the terrible code
