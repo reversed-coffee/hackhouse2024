@@ -2,6 +2,10 @@ import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
 
 // I don't like the idea of using two sources of data for the same site,
 // so I do a check on the domain and either continue or stop the script.
+// this is actually not a laziness thing even though ive called myself lazy multiple times
+// instead this saves space on the server and makes it easier to manage, but less efficient
+// on the client side. a tradeoff i'm willing to make to keep this source from giving me
+// a legit brain aneurysm
 
 const rogueDomain = "dashbajk.us";
 const handlers = {};
@@ -20,7 +24,7 @@ const handlers = {};
     // js and jsm do not like talking to each other so we have to do this weird
     // nonesense to get some communication going
     window.addEventListener("message", (event) => {
-        if (event.data.type === "sq") {
+        if (event.data.type === "sq") { // idk what this is but im sure if i remove it it will break the entire website
             const handler = handlers[event.data.id];
             if (handler !== undefined) handler();
         }
@@ -87,12 +91,13 @@ const handlers = {};
                 slogan.innerText = '"' + text.substring(0, slogan.innerText.length - 3) + '"';
                 if (slogan.innerText.length === 2) {
                     clearInterval(untypeInterval);
-                    resolve();
+                    resolve(); // this is actually so ugly i might cry
                 }
             }, 35);
         });
         
         // Type a new slogan in
+        // yes im initializing constants in a function, sue me (don't actually)
         const slogans = [
             `Reported data to the mothership!`,
             `Haha, you fell for it!`,
@@ -111,6 +116,7 @@ const handlers = {};
             `Nice credentials, by the way!`
         ];
 
+        // ok this isnt terrible but its still bad
         const sel = Math.floor(Math.random() * slogans.length);
         const newText = '"' + slogans[sel];
 
@@ -122,12 +128,12 @@ const handlers = {};
                 i++;
                 if ((slogan.innerText.length - 1) === newText.length) {
                     clearInterval(typeInterval);
-                    resolve();
+                    resolve(); // code repetition! im such a great coder...listen if i cared about this code i would be writing clean code
                 }
             }, 100);
         });
-        console.log("Slogan changed!");
-    }
-
-    
+        console.log("Slogan changed!"); // yes im going to just leave this dangling even out of debugging
+        // it makes the experience more authentic for the user whos getting their data stolen
+        // how? well slower performance and more bugs = more authentic phishing experience
+    }    
 })();
