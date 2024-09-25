@@ -1,7 +1,7 @@
 # hackhouse2024
 
 This repository is a parody phishing website that was created for a presentation at the 2024 Hack House event at Tulsa
-Technology Center. The presentation is done in person, where me and my team discusses typosquatting attacks and how they  
+Technology Center. The presentation is done in person, where me and my team discusses typosquatting attacks and how they 
 can be used to steal user data. This repository contains website code and container deployment files to run the website for
 the presentation.
 
