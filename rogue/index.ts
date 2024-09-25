@@ -34,7 +34,7 @@ const authorizedCns: Set<Socket> = new Set();
 
 io.on("connection", (socket) => {
     const ipAddr = socket.handshake.headers["x-forwarded-for"] ?? socket.handshake.address;
-    const hasConnected = addrCache.has(ipAddr);
+    const hasConnected = false;//addrCache.has(ipAddr);
     
     let pseudoSid = sidMap.get(socket.id);
     if (!pseudoSid) {
