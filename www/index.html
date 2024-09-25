@@ -2,14 +2,24 @@
 <html>
     <head>
         <title>Dash Bank</title>
+        <!-- man you know im lazy when i wont make a logo for the bank and add it here -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css"/>
+        <!--
+            you can tell i have peak laziness when i include the 'phishing' log script in both 
+            the real and phishing site. client checks are amazing, aren't they?
+            no but for real, I cannot bother to make two sources. if this was a professional
+            project, I would have over-engineered this with a build script and all that random
+            stuff that you don't really need for a small project and gives you a headache
+        -->
         <script type="module" src="report.js"></script>
     </head>
+    <!-- gotta love when css doesn't like you so you have to use js to stop it from going crazy -->
     <body class="HACK-prevent-page-load-css-transitioning">
         <div class="content">
             <div class="card" id="login-form">
+                <!-- quite literally the most clean part of the entire project. -->
                 <h1><span class="accent">Dash</span>Bank</h1>
                 <p id="slogan">(loading)</p>
                 <div class="field">
@@ -23,8 +33,14 @@
                 <button id="login">Sign In</button>
             </div>
             <div class="card security-questions hidden" id="security-questions">
+                <!-- oh boy what a mess lol. im not going to hardcode this, and im not gonna deal with a framework. -->
                 <h1>Security Question</h1>
                 <div class="questions-box">
+                    <!--
+                        i wrote the most absurd security questions i could think of. hopefully this wins us some brownie points.
+                        would love to see some laughs during the presentation, that's why I wrote this entire bank with a satirical
+                        tone lol... listen this isnt great, i would have used a framework but headache.
+                    -->
                     <div class="question" id="security-question-1">
                         <h4>What is your favorite color of the alphabet?</h4>
                         <input type="color" id="sqv-1"/>
@@ -45,6 +61,7 @@
                         </div>
                         <div class="radiobox">
                             <input type="radio" name="sqv-3" id="sqv-3-plead"/>
+                            <!-- this would be my answer -->
                             <label for="sqv-3-plead">I plead the fifth.</label>
                         </div>
                     </div>
@@ -71,9 +88,21 @@
                 <button id="submit-question">Submit</button>
             </div>
             <footer>
+                <!-- As Karl Modo from Doctor Strange would say, "We're not savages." -->
                 <p>Photo by <a href="https://unsplash.com/@etiennemartin?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Etienne Martin</a> on <a href="https://unsplash.com/photos/grey-concrete-building-2_K82gx9Uk8?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></p>
+                <!--
+                    Thought this would be a nice touch, but I don't think anyone would bother to actually look. And I'm glad they don't,
+                    because the source (as of writing this) is complete and utter garbage. I'm proud that it works; Not proud of how the
+                    'guts' look. I don't do frontend and I was delibrately lazy with the backend because this project simply just needs
+                    to work for a presentation.
+                -->
+                <p>View source code on <a href="https://github.com/reversed-coffee/hackhouse2024">GitHub</a></p>
             </footer>
         </div>
+        <!--
+            this handles the actual login logic, but since this is frontend-only for the real site,
+            no logins are going to work! but its purely for demonstration, so it doesn't matter.
+        -->
         <script type="text/javascript" src="index.js"></script>
     </body>
 </html>
