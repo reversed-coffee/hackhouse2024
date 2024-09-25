@@ -6,7 +6,7 @@ body {
     --accent: #FF8811;
 
     height: 100svh;
-    width: 100svw;
+    width: 100vw;
     overflow-x: hidden;
 }
 
