@@ -57,8 +57,8 @@ html, body {
 
 .sidestack > img {
     filter: invert(90%);
-    width: 8rem;
-    height: 8rem;
+    width: 16rem;
+    height: 16rem;
     border-radius: 5px;
 }
 
