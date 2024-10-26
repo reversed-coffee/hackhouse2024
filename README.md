@@ -2,12 +2,13 @@
 
 A demonstration of typosquatting attacks and their prevention.
 
-As an annual event hosted by the Cybersecurity/Forensics class at Tulsa Technology Center, Hack House is an event that
-showcases everyday cybersecurity threats and how to prevent them. Several booths were set up and presented to the
-general audience, industry partners, and campus students. My team and I presented a demonstration on typosquatting
-attacks and how they can be used to steal information.
+As the concerns of cybersecurity increase during Cybersecurity Awareness Month, the Cybersecurity/Forensics class
+at Tulsa Technology Center showcases everyday cybersecurity threats and how to prevent them. Several booths were
+set up and presented to the general audience, industry partners, and campus students. This repository contains
+supplemental information for one of the presentations featured at the event: typosquatting.
 
-If you were unable to attend the event or would like to learn more about typosquatting attacks, check out
+My team and I presented a demonstration on typosquatting attacks and how they can be used to steal information. If 
+you were unable to attend the event or would like to learn more about typosquatting attacks, check out
 [What is Typosquatting?](#what-is-typosquatting). If you would like to learn about the technical aspects of the
 demonstration, check out the Technical Details section, starting with the [Attack Flow](#attack-flow).
 
