@@ -1,8 +1,16 @@
+# A 'dev' compose file basicallly defines the services that are going to be ran in a testing or development
+# environment for a service. This is useful for testing and debugging services before deploying them to a
+# production environment. This ensures that only 'working' services are deployed to production.
+
+# Deploys two services:
+# - nginx:        The HTTP frontend for the phishing page
+# - dashbajk-api: The backend API for the phishing page
+
 services:
   nginx:
     image: nginx:stable-alpine
     container_name: hackhouse-nginx
-    network_mode: host
+    network_mode: host                        # Everything is forwared to host (in this case, port 80 which is HTTP)
     volumes:
       - "./nginx.conf:/etc/nginx/nginx.conf"
       - "./http:/etc/nginx/http.d"
@@ -15,7 +23,7 @@ services:
     image: oven/bun:latest
     container_name: rogue-api
     ports:
-      - 127.0.0.1:3000:80
+      - 127.0.0.1:3000:80                    # Containerized and to be accessed via localhost
     volumes:
       - "./rogue:/app"
     working_dir: /app

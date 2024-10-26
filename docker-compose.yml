@@ -1,12 +1,16 @@
+# This is whats deployed on the production server. Basically, the difference between this and
+# the 'dev' compose file is that this is deployed with a hardened configuration and is meant to be
+# used in production.
+
 services:
   nginx:
     image: nginx:stable-alpine
     container_name: hackhouse-nginx
-    hostname: nginx.hackhouse.lan
+    hostname: nginx.hackhouse.internal       # Internal TLD ensures no DNS conflicts
     networks:
       - hackhouse
     ports:
-      - 80:80
+      - 80:80                                # Expose port 80 (HTTP) to the Docker host
     volumes:
       - "./nginx.conf:/etc/nginx/nginx.conf"
       - "./http:/etc/nginx/http.d"
@@ -26,7 +30,7 @@ services:
     working_dir: /app
     command: sh -c 'bun install && bun start'
     restart: on-failure
-  
+
 networks:
   hackhouse:
     driver: bridge
